@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import TestCounter from './pages/TestCounter'
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('home')
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -56,6 +58,18 @@ function App() {
     }
   }
 
+  // Render different pages based on currentPage state
+  if (currentPage === 'test') {
+    return (
+      <>
+        <nav className="App-nav">
+          <button onClick={() => setCurrentPage('home')} className="nav-button">← Back Home</button>
+        </nav>
+        <TestCounter />
+      </>
+    )
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -91,6 +105,9 @@ function App() {
             </button>
             <button onClick={fetchData} disabled={loading}>
               {loading ? 'Loading...' : 'Fetch Data'}
+            </button>
+            <button onClick={() => setCurrentPage('test')} className="nav-button-main">
+              🔢 Test Counter
             </button>
           </div>
         </section>
